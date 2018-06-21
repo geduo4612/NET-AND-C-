@@ -79,7 +79,9 @@ The Invoke method transforms the message in the msg parameter into a IMethodCall
   WCF_ServiceProxy<T> serviceRealProxy = new WCF_ServiceProxy<T>(endPointName, this.AppCfg.AS_Protocol, urlFix, this.UserCode, this.UserPWD,this.XzqhBm,this.DbYear, this.AppCfg.AS_IP, this.AppCfg.AS_Port, this.AppCfg.AS_PK);
   return (T)(serviceRealProxy.GetTransparentProxy());
  ```
- 可以看到通过GetTransparentProxy返回会透明代理对象，在通过类型转换成服务接口。那么透明代理的生成是否意味着服务端对应的示例对象也生成了呢？从Invoke方法的实现来看只有创立通道之后服务端的
- 真正提供服务的对象才会创立起来，通过`object returnValue = methodCall.MethodBase.Invoke(channel, copiedArgs);`进行调用，并把结果返回给透明代理。使得就像调用本地一个方法一样自然。<br>
+ 可以看到通过GetTransparentProxy返回会透明代理对象，在通过类型转换成服务接口。那么透明代理的生成是否意味着服务端对应的提供服务的对象也生成了呢？从Invoke方法的实现来看：只有创立通道之后服务端真正提供服务的对象才会创立起来，通过`object returnValue = methodCall.MethodBase.Invoke(channel, copiedArgs)`进行调用，并把结果返回给透明代理，通过这种方式是的远程调用就像调用本地方法一样自然。<br>
+ 
+ IFIS中涉及到的WCF是如何的呢？<br>
+ ================================
  
  
